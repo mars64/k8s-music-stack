@@ -10,5 +10,3 @@ spec:
     - name: mpd
       port: 6600
       targetPort: 6600
-      nodePort: 32003
-  type: NodePort

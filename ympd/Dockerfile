@@ -26,7 +26,7 @@ RUN cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_INSTALL_PRE
     && make \
     && make install 
 
-RUN apk -q --no-progress del cmake gcc g++ libmpdclient-dev curl \
+RUN apk -q --no-progress del cmake gcc g++ openssl-dev libmpdclient-dev curl \
     && rm -rf /var/cache/apk/*
 
 EXPOSE 8080

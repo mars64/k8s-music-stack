@@ -6,8 +6,6 @@ ENV ICECAST_VERSION 2.4.3-r4
 
 ARG user=icecast
 ARG group=icecast
-# ARG uid=1000
-# ARG gid=1000
 
 RUN apk -q update \
     && apk -q --no-progress add icecast="$ICECAST_VERSION" \

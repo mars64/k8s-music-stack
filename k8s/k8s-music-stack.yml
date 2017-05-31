@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: k8s-music-stack
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: k8s-music-stack
+    spec:
+      containers:
+      - name: icecast
+        image: mars64/icecast:latest
+        ports:
+        - containerPort: 8000
+      - name: mpd
+        image: mars64/mpd:latest
+        ports: 
+        - containerPort: 6600
+        volumeMounts:
+        - mountPath: /var/lib/mpd/music
+          name: mpd-music
+          readOnly: false
+        - mountPath: /var/lib/mpd/playlists
+          name: mpd-playlists
+          readOnly: false
+        - mountPath: /var/lib/mpd/database
+          name: mpd-db
+          readOnly: false
+      - name: sima
+        image: mars64/sima:latest
+      - name: ympd
+        image: mars64/ympd:latest
+        ports:
+        - containerPort: 8080
+      volumes: 
+      - name: mpd-music
+        hostPath:
+          path: /Users/mars/code/k8s.101/icecast/music
+      - name: mpd-playlists
+        hostPath:
+          path: /Users/mars/code/k8s.101/icecast/playlists
+      - name: mpd-db
+        hostPath:
+          path: /Users/mars/code/k8s.101/icecast/database

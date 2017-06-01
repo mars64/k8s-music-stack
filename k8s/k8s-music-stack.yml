@@ -15,6 +15,10 @@ spec:
         image: mars64/icecast:latest
         ports:
         - containerPort: 8000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
       - name: mpd
         image: mars64/mpd:latest
         ports: 
@@ -29,19 +33,31 @@ spec:
         - mountPath: /var/lib/mpd/database
           name: mpd-db
           readOnly: false
+        livenessProbe: 
+          exec: 
+            command:
+              - hostname
       - name: sima
         image: mars64/sima:latest
+        livenessProbe:
+          exec:
+            command:
+              - hostname
       - name: ympd
         image: mars64/ympd:latest
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet: 
+            path: /
+            port: 8080
       volumes: 
       - name: mpd-music
         hostPath:
           path: /Users/mars/code/k8s.101/icecast/music
       - name: mpd-playlists
         hostPath:
-          path: /Users/mars/code/k8s.101/icecast/playlists
+          path: /users/mars/code/k8s.101/icecast/playlists
       - name: mpd-db
         hostPath:
-          path: /Users/mars/code/k8s.101/icecast/database
+          path: /Users/mars/k8s.101/icecast/database

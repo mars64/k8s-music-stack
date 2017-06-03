@@ -8439,10 +8439,15 @@ Error message and password prompt
 [[Module 0) Init]]
 Resources</pre>
 </div>
-<div status="complete" title="$:/Import">
-<pre>The following tiddlers were imported:
-
-# [[icecast_screen.png]]</pre>
+<div plugin-type="import" status="pending" title="$:/Import" type="application/json">
+<pre>{
+    &quot;tiddlers&quot;: {
+        &quot;Untitled&quot;: {
+            &quot;title&quot;: &quot;Untitled&quot;,
+            &quot;text&quot;: &quot;&lt;span style=\&quot;color: rgb(51, 51, 51); font-family: &amp;quot;Helvetica Neue&amp;quot;, Helvetica, Arial, &amp;quot;Lucida Grande&amp;quot;, &amp;quot;DejaVu Sans&amp;quot;, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\&quot;&gt;&lt;span class=\&quot;Apple-converted-space\&quot;&gt; &lt;/span&gt;certain conditions. In c&lt;/span&gt;&quot;
+        }
+    }
+}</pre>
 </div>
 <div title="$:/isEncrypted">
 <pre>no</pre>
@@ -8459,7 +8464,7 @@ Resources</pre>
 <div created="20170514200820152" modified="20170514200825744" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
-<div created="20170514201433417" creator="Marcial White" modified="20170602041853282" modifier="Marcial White" title="$:/state/sidebar">
+<div created="20170514201433417" creator="Marcial White" modified="20170603033750068" modifier="Marcial White" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div created="20170514202911605" creator="Marcial White" modified="20170514205855225" modifier="Marcial White" title="$:/state/tab--1963855381">
@@ -8486,7 +8491,7 @@ Resources</pre>
 <div created="20170514201449857" modified="20170514201449857" title="$:/status/UserName">
 <pre>Marcial White</pre>
 </div>
-<div list="TableOfContents [[Module 7) Kubernetes Production Readiness]] [[Module 6) Kubernetes Lab Part 2]] Resources" title="$:/StoryList">
+<div list="TableOfContents [[Module 3) Docker Lab]] [[Module 7) Kubernetes Production Readiness]] [[Module 2) 12 Factor Application Design]] [[Module 0) Init]] Resources" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -8502,7 +8507,7 @@ Resources</pre>
         },
         &quot;$:/info/url/full&quot;: {
             &quot;title&quot;: &quot;$:/info/url/full&quot;,
-            &quot;text&quot;: &quot;file:///Users/mars/code/k8s.101/MarcialWhite-Kubernetes101-www.SoFree.us-20170603.html&quot;
+            &quot;text&quot;: &quot;file:///C:/Users/Mars/Downloads/Desktop/MarcialWhite-Kubernetes101-www.SoFree.us-20170603.html&quot;
         },
         &quot;$:/info/url/host&quot;: {
             &quot;title&quot;: &quot;$:/info/url/host&quot;,
@@ -8522,7 +8527,7 @@ Resources</pre>
         },
         &quot;$:/info/url/pathname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/pathname&quot;,
-            &quot;text&quot;: &quot;/Users/mars/code/k8s.101/MarcialWhite-Kubernetes101-www.SoFree.us-20170603.html&quot;
+            &quot;text&quot;: &quot;/C:/Users/Mars/Downloads/Desktop/MarcialWhite-Kubernetes101-www.SoFree.us-20170603.html&quot;
         },
         &quot;$:/info/url/search&quot;: {
             &quot;title&quot;: &quot;$:/info/url/search&quot;,
@@ -9163,7 +9168,7 @@ Stopping dockermusicstack_ympd_1 ... done
 Stopping dockermusicstack_mpd_1 ... done
 ```</pre>
 </div>
-<div created="20170514211800307" creator="Marcial White" modified="20170602041532954" modifier="Marcial White" tags="TableOfContents" title="Module 4) Kubernetes System Design" type="">
+<div created="20170514211800307" creator="Marcial White" modified="20170603025653253" modifier="Marcial White" tags="TableOfContents" title="Module 4) Kubernetes System Design" type="">
 <pre>In it's most simple form, a Kubernetes cluster consists of two types of resources: 
 
 * The Master coordinates the cluster
@@ -9186,11 +9191,11 @@ A node is a VM or a physical computer that serves as a worker machine in a Kuber
 
 Masters manage the cluster and the nodes are used to host the running applications.
 
-When you deploy applications on Kubernetes, you tell the master to start the application containers. The master schedules the containers to run on the cluster's nodes. The nodes communicate with the master using the Kubernetes API, which the master exposes. End users can also use the Kubernetes API directly to interact with the cluster, using the [[kubectl|https://kubernetes.io/docs/tasks/tools/install-kubectl/]] tool. We'll explore this tool more in the [[Kubernetes Lab]]. But first, let's talk about the objects used inside the cluster. 
+When you deploy applications on Kubernetes, you tell the master to start the application containers. The master schedules the containers to run on the cluster's nodes. The nodes communicate with the master using the Kubernetes API, which the master exposes. End users can also use the Kubernetes API directly to interact with the cluster, using the [[kubectl|https://kubernetes.io/docs/tasks/tools/install-kubectl/]] tool. We'll explore this tool more in the [[Module 5) Kubernetes Lab Part 1]]. But first, let's talk about the objects used inside the cluster. 
 
 !Kubernetes Resources
 
-Kubernetes Resources (or 'objects') are persistent entities in the Kubernetes system. Kubernetes uses these entities to represent the state (both desired and current) of your cluster. Specifically, they can describe:
+Kubernetes Resources (or 'objects') are persistent entities in the Kubernetes system. Kubernetes uses these entities to represent the state (both desired and current) of the usage of your cluster. Specifically, they can describe:
 
 * What containerized applications are running (and on which nodes)
 * The resources available to those applications
@@ -9285,12 +9290,12 @@ Most Kubernetes resources (e.g. pods, services, replication controllers, and oth
 
 ''Labels'' are key/value pairs that are attached to objects, such as pods. Labels are intended to be used to specify ''identifying attributes'' of objects that are meaningful and relevant to users, but ''do not directly imply semantics to the core system''. Labels can be used to organize and to select subsets of objects. Labels can be attached to objects at creation time and subsequently added and modified at any time. Each object can have a set of key/value labels defined. Each Key must be unique for a given object. Unlike names and UIDs, labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
 
-'''
+```
 &quot;labels&quot;: {
   &quot;key1&quot; : &quot;value1&quot;,
   &quot;key2&quot; : &quot;value2&quot;
 }
-'''
+```
 
 Example labels:
 
@@ -9350,7 +9355,7 @@ The [[kubelet|https://kubernetes.io/docs/admin/kubelet/]] uses liveness probes (
 
 !![[Readiness|https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#defining-readiness-probes]]
 
-In contrast, a readiness probe tells the [[kubelet|https://kubernetes.io/docs/admin/kubelet/]] when a pod is //ready//. In many cases this is significant, because a pod can be //alive// but not yet ready to serve content. Readiness probes are configured similarly to liveness probes. The only difference is that you use the `readinessProbe` field instead of the `livenessProbe` field. However, readiness probes should refer to some endpoint that can ensure the pod is ready to serve traffic. 
+In contrast, a readiness probe tells the [[kubelet|https://kubernetes.io/docs/admin/kubelet/]] when a pod is ''ready to serve traffic''. In many cases this is significant, because a pod can be //alive// but not yet ready to serve content. Readiness probes are configured similarly to liveness probes. The only difference is that you use the `readinessProbe` field instead of the `livenessProbe` field. However, readiness probes should refer to some endpoint that can ensure the pod is ready to serve traffic. 
 
 For instance: if you had a webserver pod that required a database to serve customers, a liveness probe might only check to see if port 80 is responding; that the webserver is online. A readiness check might target a page that requires the database connection be live before being able to serve the page. When a check receives a 200-level response, the check is considered positive and the kubelet allows traffic to be routed to Kubernetes Services.
 

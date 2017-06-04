@@ -8464,7 +8464,7 @@ Resources</pre>
 <div created="20170514200820152" modified="20170514200825744" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
-<div created="20170514201433417" creator="Marcial White" modified="20170603033750068" modifier="Marcial White" title="$:/state/sidebar">
+<div created="20170514201433417" creator="Marcial White" modified="20170604161804998" modifier="Marcial White" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div created="20170514202911605" creator="Marcial White" modified="20170514205855225" modifier="Marcial White" title="$:/state/tab--1963855381">
@@ -8491,7 +8491,7 @@ Resources</pre>
 <div created="20170514201449857" modified="20170514201449857" title="$:/status/UserName">
 <pre>Marcial White</pre>
 </div>
-<div list="TableOfContents [[Module 3) Docker Lab]] [[Module 7) Kubernetes Production Readiness]] [[Module 2) 12 Factor Application Design]] [[Module 0) Init]] Resources" title="$:/StoryList">
+<div list="TableOfContents [[Module 3) Docker Lab]] [[Module 5) Kubernetes Lab Part 1]] Resources" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -8507,7 +8507,7 @@ Resources</pre>
         },
         &quot;$:/info/url/full&quot;: {
             &quot;title&quot;: &quot;$:/info/url/full&quot;,
-            &quot;text&quot;: &quot;file:///C:/Users/Mars/Downloads/Desktop/MarcialWhite-Kubernetes101-www.SoFree.us-20170603.html&quot;
+            &quot;text&quot;: &quot;file:///Users/mars/code/k8s-music-stack/MarcialWhite-Kubernetes101-www.SoFree.us-20170603.html&quot;
         },
         &quot;$:/info/url/host&quot;: {
             &quot;title&quot;: &quot;$:/info/url/host&quot;,
@@ -8527,7 +8527,7 @@ Resources</pre>
         },
         &quot;$:/info/url/pathname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/pathname&quot;,
-            &quot;text&quot;: &quot;/C:/Users/Mars/Downloads/Desktop/MarcialWhite-Kubernetes101-www.SoFree.us-20170603.html&quot;
+            &quot;text&quot;: &quot;/Users/mars/code/k8s-music-stack/MarcialWhite-Kubernetes101-www.SoFree.us-20170603.html&quot;
         },
         &quot;$:/info/url/search&quot;: {
             &quot;title&quot;: &quot;$:/info/url/search&quot;,
@@ -8786,7 +8786,7 @@ The twelve-factor app is a methodology for building software-as-a-service apps t
 # Admin processes
 #* Run admin/management tasks as one-off processes</pre>
 </div>
-<div created="20170520194927340" creator="Marcial White" modified="20170602041209313" modifier="Marcial White" tags="TableOfContents" title="Module 3) Docker Lab">
+<div created="20170520194927340" creator="Marcial White" modified="20170604161750672" modifier="Marcial White" tags="TableOfContents" title="Module 3) Docker Lab">
 <pre>!Prerequisites
 * Sign up for [[GitHub|https://github.com]]
 * Signup for the [[Docker Hub|https://hub.docker.com]]
@@ -9109,6 +9109,8 @@ Stopping dockermusicstack_mpd ... done
 Stopping dockermusicstack_icecast ... done
 ```
 
+[img width=30 [bw-mind-blown.png]] By default, mpd is configured to read only 128kbps files. The mp3's that we staged earlier were converted to 128kbps to ensure compatibility with this course. If you'd like to experiment with other configurations, adjust the parameters in the `mpd.conf` file located in the `mpd` directory of the `k8s-music-stack` repo, build, push, then update the path to the mpd image in the `docker-compose.yml` script. 
+
 !!So about k8s ...
 
 To demonstrate the self-healing abilities of an orchestration system like Kubernetes, let's demonstrate what happens when something fails without it. Application failures occur for a seemingly infinite number of reasons, and in a static deployment system the outcome is usually that your service is no longer available. 
@@ -9156,7 +9158,7 @@ f86da69fea7b        vitiman/alpine-ympd:latest   &quot;ympd -h mpd -p 66...&quot
 c5b3d8c1b9e2        vitiman/alpine-mpd:latest    &quot;mpd --stdout --no...&quot;   11 minutes ago      Up 3 minutes        0.0.0.0:6600-&gt;6600/tcp   dockermusicstack_mpd_1
 ```
 
-[img width=30 [bw-mind-blown.png]] If you were listening to the stream, the music would have stopped. When a container fails, the service fails. And ''that's'' when people get paged. Let's take a look at how Kubernetes can help in the [[Kubernetes Lab 1]]
+[img width=30 [bw-mind-blown.png]] If you were listening to the stream, the music would have stopped. When a container fails, the service fails. And ''that's'' when people get paged. Let's take a look at how Kubernetes can help in the [[Module 5) Kubernetes Lab Part 1]]
 
 !Don't forget to clean up!
 
@@ -9394,10 +9396,10 @@ spec:
 
 Getting these values //perfect// can be tricky, depending on how the applications in your pods behave. Getting this right can optimize your application for uptime. At worst however, getting these wrong can result in the dreaded //~CrashLoopBackoff//.</pre>
 </div>
-<div created="20170527212242991" creator="Marcial White" modified="20170601060727990" modifier="Marcial White" tags="TableOfContents" title="Module 5) Kubernetes Lab Part 1">
+<div created="20170527212242991" creator="Marcial White" modified="20170604161202827" modifier="Marcial White" tags="TableOfContents" title="Module 5) Kubernetes Lab Part 1">
 <pre>!kubectl
 
-Let's use the [[kubectl|https://kubernetes.io/docs/tasks/tools/install-kubectl/]] tool to interact with our cluster. It's distributed as a single binary, so let's pull it down in `/tmp/` and move it to somewhere in our `$PATH` like `/usr/local/bin/kubectl`. 
+Let's use the [[kubectl|https://kubernetes.io/docs/tasks/tools/install-kubectl/]] tool to interact with our cluster. It's distributed as a single binary, so let's pull it down in `/tmp/` and move it to somewhere in our `$PATH` like `/usr/local/bin/kubectl`. These instructions were written for ~MacOS, be sure to grab the binary corresponding your architecture on the [[kubectl|https://kubernetes.io/docs/tasks/tools/install-kubectl/]] site.
 
 * `$ cd /tmp/`
 * `/tmp $ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl`
@@ -9416,7 +9418,7 @@ Notice the output of `version` includes a line about connection to localhost:808
 
 !minikube
 
-By default, the kubectl binary keeps track of it's configuration (which cluster you're connected to, what certificates might be required to communicate, etc) by way of a file called `~/.kube/config`. This file can be generated for us on successful deployment of a minikube cluster, so lets do that now. At the time of this writing, `0.19.1` is latest, so I'll use that: 
+By default, the kubectl binary keeps track of it's configuration (which cluster you're connected to, what certificates might be required to communicate, etc) by way of a file called `~/.kube/config`. This file can be generated for us on successful deployment of a minikube cluster, so lets do that now. At the time of this writing, `0.19.1` is latest, so I'll use that. These instructions were written for ~MacOS, be sure to grab the binary corresponding your architecture on the [[minikube|https://github.com/kubernetes/minikube/releases]] releases page. 
 
 * `$ curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.19.1/minikube-darwin-amd64 &amp;&amp; chmod +x minikube &amp;&amp; sudo mv minikube /usr/local/bin/`
 * `$ minikube --vm-driver=virtualbox start`
@@ -9751,7 +9753,7 @@ Events:
   2m		2m		1	replicaset-controller			Normal		SuccessfulCreate	Created pod: hello-minikube-938614450-vdscp
 ```
 
-[img width=30 [bw-mind-blown.png]] So far, we've deployed a single-container pod into Kubernetes by referencing a single container on a remote repository, giving it a name, and assuming some defaults. Due to the defaults, the service wasn't exposed, so we exposed it to demonstrate the service was actually serving and that it continued to serve after the pod was manually deleted. In production environments, pods can die for any number of reasons -- to the best of its abilities, Kubernetes will keep the pod online without your intervention. Now let's see how Kubernetes can manage the Icecast stream in [[Kubernetes Lab 2]].
+[img width=30 [bw-mind-blown.png]] So far, we've deployed a single-container pod into Kubernetes by referencing a single container on a remote repository, giving it a name, and assuming some defaults. Due to the defaults, the service wasn't exposed, so we exposed it to demonstrate the service was actually serving and that it continued to serve after the pod was manually deleted. In production environments, pods can die for any number of reasons -- to the best of its abilities, Kubernetes will keep the pod online without your intervention. Now let's see how Kubernetes can manage the Icecast stream in [[Module 6) Kubernetes Lab Part 2]].
 
 !Don't forget to clean up! 
 
@@ -9767,7 +9769,7 @@ deployment &quot;hello-minikube&quot; deleted
 service &quot;hello-minikube&quot; deleted
 ```</pre>
 </div>
-<div created="20170601034031153" creator="Marcial White" modified="20170601060743820" modifier="Marcial White" tags="TableOfContents" title="Module 6) Kubernetes Lab Part 2">
+<div created="20170601034031153" creator="Marcial White" modified="20170604160845063" modifier="Marcial White" tags="TableOfContents" title="Module 6) Kubernetes Lab Part 2">
 <pre>Now that we have a cluster we can launch configurations into, let's clone Mars64's [[k8s-music-stack|https://github.com/mars64/k8s-music-stack]]:
 
 * `$ git clone https://github.com/mars64/k8s-music-stack.git`
@@ -10313,7 +10315,40 @@ k8s-music-stack-154120085-mrpb4   4/4       Terminating   2         22m
 k8s-music-stack-154120085-jk9z3   4/4       Running   0         7s
 ```
 
-[img width=30 [bw-mind-blown.png]] We just observed one of the many benefits of running workload in Kubernetes: self-healing! Of course, to get the music playing again required manual intervention, but that's because I couldn't figure out how to make `ympd` automagically queue and play before this class. I'll leave that as one of many exercises for the reader.</pre>
+[img width=30 [bw-mind-blown.png]] We just observed one of the many benefits of running workload in Kubernetes: self-healing! Of course, to get the music playing again required manual intervention, but that's because I couldn't figure out how to make `ympd` automagically queue and play before this class. I'll leave that as one of many exercises for the reader.
+
+!Clean up!
+
+* `$ kubectl delete deploy/k8s-music-stack`
+
+```
+deployment &quot;k8s-music-stack&quot; deleted
+```
+
+* `$ kubectl delete svc/icecast`
+
+```
+service &quot;icecast&quot; deleted
+```
+
+* `$ kubectl delete svc/mpd`
+
+```
+service &quot;mpd&quot; deleted
+```
+
+* `$ kubectl delete svc/ympd`
+
+```
+service &quot;ympd&quot; deleted
+```
+
+* `$ minikube stop`
+
+```
+Stopping local Kubernetes cluster...
+Machine stopped.
+```</pre>
 </div>
 <div created="20170528222353717" creator="Marcial White" modified="20170601060848134" modifier="Marcial White" tags="TableOfContents" title="Module 7) Kubernetes Production Readiness">
 <pre>!On-premises/Cloud

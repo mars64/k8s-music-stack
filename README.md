@@ -10,6 +10,9 @@ To get started with this course, open the HTML file in your favorite browser. Th
 
 Found a problem? Feel free to submit a PR ;)
 
+*NOTE* there's a bug in VirtualBox (see [this report](https://stackoverflow.com/questions/42294304/minikube-install-in-ubuntu-vm-vt-x-amd-v-enabling-to-vm-inside-another-vm)) - you cannot use nested Virtual Box for this course. You'll have to use KVM, VMware, or some other solution.
+
 Happy kube'ing!
+
 
 -Mars

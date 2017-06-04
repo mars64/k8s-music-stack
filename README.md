@@ -8,7 +8,8 @@ These containers have been configured to serve everything over 'localhost' -- mi
 
 To get started with this course, open the HTML file in your favorite browser. This is a single-file wiki doc using [tiddlywiki](http://tiddlywiki.com/). Links to tiddlers will open within the file, external links will open in a new tab/window. 
 
-Found a problem? Feel free to submit a PR :)
+Found a problem? Feel free to submit a PR ;)
 
 Happy kube'ing!
+
 -Mars

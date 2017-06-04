@@ -2,7 +2,7 @@
 
 k8s specs for Icecast, mpd, ympd, sima - based on https://github.com/vitiMan/docker-music-stack
 
-This class was built for the [Software Freedom School](www.SoFree.us), and presented on June 3rd, 2017 at SFS HQ in Denver, Co. 
+This class was built for the [Software Freedom School](http://www.SoFree.us), and presented on June 3rd, 2017 at SFS HQ in Denver, Co. 
 
 These containers have been configured to serve everything over 'localhost' -- minikube/alpine/kube-dns continue to have issues resolving internal cluster service names from within pods, so this was the easiest way to make it work.
 

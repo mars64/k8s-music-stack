@@ -10,6 +10,25 @@ spec:
       labels:
         app: k8s-music-stack
     spec:
+      initContainers:
+      - name: init-track1
+        image: appropriate/curl
+        command: ['sh', '-c', 'until curl --create-dirs -L http://rinseandrepeatradio.com/music/k8s.101/Mars64-MB9-128k.mp3 -o /tmp/icecast/music/Mars64-MB9-128k.mp3; do sleep 2; done;']
+        volumeMounts:
+        - mountPath: /tmp/icecast/music/
+          name: mpd-music
+      - name: init-track2
+        image: appropriate/curl
+        command: ['sh', '-c', 'until curl --create-dirs -L http://rinseandrepeatradio.com/music/k8s.101/Mars64-MutantBreakz8-Emit-128k.mp3 -o /tmp/icecast/music/Mars64-MutantBreakz8-Emit-128k.mp3; do sleep 2; done;']
+        volumeMounts:
+        - mountPath: /tmp/icecast/music/
+          name: mpd-music
+      - name: init-track3
+        image: appropriate/curl
+        command: ['sh', '-c', 'until curl --create-dirs -L http://rinseandrepeatradio.com/music/k8s.101/Mars64-Svartifoss-128k.mp3 -o /tmp/icecast/music/Mars64-Svartifoss-128k.mp3; do sleep 2; done;']
+        volumeMounts:
+        - mountPath: /tmp/icecast/music/
+          name: mpd-music
       containers:
       - name: icecast
         image: mars64/icecast:latest
@@ -37,12 +56,6 @@ spec:
           exec: 
             command:
               - hostname
-      - name: sima
-        image: mars64/sima:latest
-        livenessProbe:
-          exec:
-            command:
-              - hostname
       - name: ympd
         image: mars64/ympd:latest
         ports:
@@ -53,11 +66,8 @@ spec:
             port: 8080
       volumes: 
       - name: mpd-music
-        hostPath:
-          path: /Users/mars/code/k8s.101/icecast/music
+        emptyDir: {}
       - name: mpd-playlists
-        hostPath:
-          path: /users/mars/code/k8s.101/icecast/playlists
+        emptyDir: {}
       - name: mpd-db
-        hostPath:
-          path: /Users/mars/k8s.101/icecast/database
+        emptyDir: {}

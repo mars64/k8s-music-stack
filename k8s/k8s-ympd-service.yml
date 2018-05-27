@@ -3,12 +3,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ympd
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: ympd.mars64.k8s.sofree.us.
 spec:
   selector:
     app: k8s-music-stack
   ports:
     - name: ympd
-      port: 8080
+      port: 80
       targetPort: 8080
-      nodePort: 31002
-  type: NodePort
+  type: LoadBalancer
+  loadBalancerSourceRanges:
+  - 67.176.126.195/32

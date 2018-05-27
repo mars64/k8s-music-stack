@@ -17,18 +17,36 @@ spec:
         volumeMounts:
         - mountPath: /tmp/icecast/music/
           name: mpd-music
+        resources:
+          requests:
+            cpu: 10m
       - name: init-track2
         image: appropriate/curl
         command: ['sh', '-c', 'until curl --create-dirs -L http://rinseandrepeatradio.com/music/k8s.101/Mars64-MutantBreakz8-Emit-128k.mp3 -o /tmp/icecast/music/Mars64-MutantBreakz8-Emit-128k.mp3; do sleep 2; done;']
         volumeMounts:
         - mountPath: /tmp/icecast/music/
           name: mpd-music
+        resources:
+          requests:
+            cpu: 10m
       - name: init-track3
         image: appropriate/curl
         command: ['sh', '-c', 'until curl --create-dirs -L http://rinseandrepeatradio.com/music/k8s.101/Mars64-Svartifoss-128k.mp3 -o /tmp/icecast/music/Mars64-Svartifoss-128k.mp3; do sleep 2; done;']
         volumeMounts:
         - mountPath: /tmp/icecast/music/
           name: mpd-music
+        resources:
+          requests:
+            cpu: 10m
+      - name: init-playlists
+        image: appropriate/curl
+        command: ['sh', '-c', 'until curl --create-dirs -L http://rinseandrepeatradio.com/music/k8s.101/Mars64.m3u -o /tmp/icecast/playlists/Mars64.m3u; do sleep 2; done;']
+        volumeMounts:
+        - mountPath: /tmp/icecast/playlists/
+          name: mpd-playlists
+        resources:
+          requests:
+            cpu: 10m
       containers:
       - name: icecast
         image: mars64/icecast:latest
@@ -38,6 +56,18 @@ spec:
           httpGet:
             path: /
             port: 8000
+        resources:
+          requests:
+            cpu: 10m
+        env:
+        - name: ICECAST_VERSION
+          value: "2.4.3-r4"
+        - name: ICECAST_LOCATION
+          value: "Deep Bass Station 9"
+        - name: ICECAST_ADMIN
+          value: "binary.stereo@gmail.com"
+        - name: ICECAST_HOSTNAME
+          value: "icecast.mars64.k8s.sofree.us" 
       - name: mpd
         image: mars64/mpd:latest
         ports: 
@@ -56,6 +86,9 @@ spec:
           exec: 
             command:
               - hostname
+        resources:
+          requests:
+            cpu: 10m
       - name: ympd
         image: mars64/ympd:latest
         ports:
@@ -64,6 +97,9 @@ spec:
           httpGet: 
             path: /
             port: 8080
+        resources:
+          requests:
+            cpu: 10m
       volumes: 
       - name: mpd-music
         emptyDir: {}

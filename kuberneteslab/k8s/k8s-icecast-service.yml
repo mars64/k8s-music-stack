@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: icecast
+  annotations: 
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    external-dns.alpha.kubernetes.io/hostname: icecast.$CLUSTERNAME.
+spec:
+  selector:
+    app: k8s-music-stack
+  ports:
+    - name: icecast-web
+      port: 80
+      targetPort: 8000
+    - name: icecast-stream
+      port: 8000
+      targetPort: 8000
+  type: LoadBalancer
+  loadBalancerSourceRanges: 
+  - <your.public.ip.here>/32

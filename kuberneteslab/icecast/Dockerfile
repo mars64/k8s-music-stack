@@ -4,7 +4,7 @@ MAINTAINER @mars64 https://github.com/mars64
 
 ENV ICECAST_VERSION="2.4.3-r4"
 ENV ICECAST_LOCATION="Deep Bass Station 9"
-ENV ICECAST_ADMIN="binary.stereo@gmail.com"
+ENV ICECAST_ADMIN="you@there.tld"
 ENV ICECAST_HOSTNAME="localhost"
 
 ARG user=icecast

@@ -71,11 +71,11 @@ spec:
         - name: ICECAST_VERSION
           value: "2.4.3-r4"
         - name: ICECAST_LOCATION
-          value: "Deep Bass Station 9"
+          value: "YOUR LOCATION"
         - name: ICECAST_ADMIN
-          value: "binary.stereo@gmail.com"
+          value: "YOUR EMAIL IF YOU WANT"
         - name: ICECAST_HOSTNAME
-          value: "icecast.mars64.k8s.sofree.us" 
+          value: "icecast.$CLUSTERNAME"
       - name: mpd
         image: mars64/mpd:latest
         ports: 

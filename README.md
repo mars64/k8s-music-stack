@@ -4,8 +4,8 @@ k8s specs for Icecast, mpd, ympd, sima - based on https://github.com/vitiMan/doc
 
 This class was initially built for the [Software Freedom School](http://www.SoFree.us). Greetz out to SFS, ASG, IT/NTL and RP!
 
-v1: minikube
-v2: AWS and DigitalOcean
+- v1: minikube
+- v2: AWS and DigitalOcean
 
 Modifications have been made to the `icecast` container for the purpose of configuring via environment variables. 
 

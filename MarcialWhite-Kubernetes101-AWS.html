@@ -8818,7 +8818,7 @@ Resources</pre>
 <div created="20170514195944265" modified="20170514195945856" title="$:/SiteTitle">
 <pre>Kubernetes 101</pre>
 </div>
-<div created="20180513163123328" creator="Marcial White" modified="20180529000200956" modifier="Marcial White" title="$:/state/sidebar">
+<div created="20180513163123328" creator="Marcial White" modified="20180531044405473" modifier="Marcial White" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div created="20180513163311681" creator="Marcial White" modified="20180513163410463" modifier="Marcial White" title="$:/state/tab--1963855381">
@@ -8833,7 +8833,7 @@ Resources</pre>
 <div created="20170514201449857" modified="20170514201449857" title="$:/status/UserName">
 <pre>Marcial White</pre>
 </div>
-<div list="TableOfContents Resources" title="$:/StoryList">
+<div list="TableOfContents [[Module 5) Kubernetes Lab Part 1]] [[Module 6) Kubernetes Lab Part 2]] Resources" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -8881,11 +8881,11 @@ Resources</pre>
         },
         &quot;$:/info/browser/screen/width&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/width&quot;,
-            &quot;text&quot;: &quot;1920&quot;
+            &quot;text&quot;: &quot;1680&quot;
         },
         &quot;$:/info/browser/screen/height&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/height&quot;,
-            &quot;text&quot;: &quot;1200&quot;
+            &quot;text&quot;: &quot;1050&quot;
         }
     }
 }</pre>
@@ -9178,7 +9178,7 @@ The motivation is to raise awareness of some systemic problems often found in mo
 
 [img width=30 [bw-mind-blown.png]] The thing about 12 Factor is that it's really just a framework to discuss important aspects of containerized application design/microservice design. It's not a silver-bullet and can't always be implemented to it's fullest, which is fine! However, a strong engineer should be able to discuss these points before accepting to deploy without them. When workload is designed with these factors in mind, managing and reasoning about the deployment (i.e. scaling!) and supportability of such workloads becomes much more intuitive. With these practices in mind, let's check out [[Module 3) Docker Lab]]</pre>
 </div>
-<div created="20170520194927340" creator="Marcial White" modified="20180528213727669" modifier="Marcial White" tags="TableOfContents" title="Module 3) Docker Lab">
+<div created="20170520194927340" creator="Marcial White" modified="20180531040030250" modifier="Marcial White" tags="TableOfContents" title="Module 3) Docker Lab">
 <pre>!Goals
 
 * Explore container management
@@ -9307,31 +9307,28 @@ CONTAINER ID        IMAGE                 COMMAND                  CREATED      
 # The Docker daemon streamed that output to the Docker client, which sent it to your terminal.
 
 !Explore
-* `~/code/k8s-music-stack/dockerlab $ docker run -it ubuntu bash`
+* `~/code/k8s-music-stack/dockerlab $ docker run -ti alpine sh`
 
 ```
-Unable to find image 'ubuntu:latest' locally
-latest: Pulling from library/ubuntu
-a48c500ed24e: Pull complete
-1e1de00ff7e1: Pull complete
-0330ca45a200: Pull complete
-471db38bcfbf: Pull complete
-0b4aba487617: Pull complete
-Digest: sha256:c8c275751219dadad8fa56b3ac41ca6cb22219ff117ca98fe82b42f24e1ba64e
-Status: Downloaded newer image for ubuntu:latest
+Unable to find image 'alpine:latest' locally
+latest: Pulling from library/alpine
+ff3a5c916c92: Pull complete 
+Digest: sha256:7df6db5aa61ae9480f52f0b3a06a140ab98d427f86d8d5de0bedab9b8df6b1c0
+Status: Downloaded newer image for alpine:latest
 ```
 
-* `root@78c743b98cc0:/# uname -v`
+* `/ # cat /etc/os-release`
 
 ```
-#21-Ubuntu SMP Tue Apr 24 06:16:15 UTC 2018
+NAME=&quot;Alpine Linux&quot;
+ID=alpine
+VERSION_ID=3.7.0
+PRETTY_NAME=&quot;Alpine Linux v3.7&quot;
+HOME_URL=&quot;http://alpinelinux.org&quot;
+BUG_REPORT_URL=&quot;http://bugs.alpinelinux.org&quot;
 ```
 
-* `root@d30217d137e8:/# exit`
-
-```
-exit
-```
+* `/ # exit`
 
 Let's pull and run a [[curl container|https://hub.docker.com/r/appropriate/curl/]] and check it's version
 
@@ -9359,7 +9356,7 @@ Now let's use that container to curl `icanhazip.com` for our public ip address
 your.public.ip.here
 ```
 
-[img width=30 [bw-mind-blown.png]] You can pull all kinds of containers, straight from various registries! Here, we pull and run an Ubuntu Linux image, connect to it interactively (as root!) and examine the `kernel version`. Yep, looks like Ubuntu. Then we examine pulling and running a container straight from the registry and passing a command to it. 
+[img width=30 [bw-mind-blown.png]] You can pull all kinds of containers, straight from various registries! Here, we pull and run an Alpine Linux image, connect to it interactively (as root!) and examine the file `/etc/os-release`. Yep, looks like Alpine. Then we examine pulling and running a container straight from the registry and passing a command to it. 
 
 !nginx example
 
@@ -9532,6 +9529,9 @@ Checking connectivity... done.
 Let's localize these containers by modifying the `docker-compose.yaml` configuration to suit our environment (check the path to `music`!). If you like, here's a `sed` one-liner to update based on the SFS VM: 
 
 * `~/code/k8s-music-stack/dockerlab/docker-music-stack $ sed -i 's#/path/to/mpd_#/home/sfs/code/k8s-music-stack/dockerlab/icecast/#g' docker-compose.yml`
+
+Also, the `sima` container is an auto-queue client for mpd. We don't actually need it, and it fails with this limited configuration anyway. Let's just remove it from the config.
+
 * `~/code/k8s-music-stack/dockerlab/docker-music-stack $ cat docker-compose.yml`
 
 ```
@@ -9558,13 +9558,6 @@ services:
       - /home/sfs/code/k8s-music-stack/dockerlab/icecast/music:/var/lib/mpd/music
       - /home/sfs/code/k8s-music-stack/dockerlab/icecast/playlists:/var/lib/mpd/playlists
       - /home/sfs/code/k8s-music-stack/dockerlab/icecast/database:/var/lib/mpd/database
-
-  sima:
-    image: vitiman/alpine-sima:latest
-    depends_on:
-      - mpd
-    networks:
-      - music_stack
 
   ympd:
     image: vitiman/alpine-ympd:latest
@@ -9596,46 +9589,36 @@ Launch the stack!
 ```
 Pulling icecast (vitiman/alpine-icecast:latest)...
 latest: Pulling from vitiman/alpine-icecast
-420890c9e918: Already exists
-ff5cc7cc1d06: Already exists
-3003b344a5b3: Already exists
-5b2d2f95b3d2: Already exists
-40f772cb50ca: Already exists
+420890c9e918: Pull complete
+ff5cc7cc1d06: Pull complete
+3003b344a5b3: Pull complete
+5b2d2f95b3d2: Pull complete
+40f772cb50ca: Pull complete
 Digest: sha256:88942c377bc414edefc0241496f641e3db994923c773e489ceb4f4ef7f9e792d
 Status: Downloaded newer image for vitiman/alpine-icecast:latest
 Pulling mpd (vitiman/alpine-mpd:latest)...
 latest: Pulling from vitiman/alpine-mpd
 420890c9e918: Already exists
-44a449fdeed6: Already exists
-ee61fabc5f12: Already exists
-54111f94f9f6: Already exists
+44a449fdeed6: Pull complete
+ee61fabc5f12: Pull complete
+54111f94f9f6: Pull complete
 Digest: sha256:bda58f454e29a6276c855be7a668bf1517ba53631ec53f6b15cad8fecbcf4ac4
 Status: Downloaded newer image for vitiman/alpine-mpd:latest
 Pulling ympd (vitiman/alpine-ympd:latest)...
 latest: Pulling from vitiman/alpine-ympd
 420890c9e918: Already exists
-3e208c272355: Already exists
-6948ae1751f3: Already exists
-d41a3bc720d3: Already exists
-8a3f29625a4f: Already exists
+3e208c272355: Pull complete
+6948ae1751f3: Pull complete
+d41a3bc720d3: Pull complete
+8a3f29625a4f: Pull complete
 Digest: sha256:005c9407daba4d45261c442e515000c25bded8f02a19cdbbc407bbc8985caa1a
 Status: Downloaded newer image for vitiman/alpine-ympd:latest
-Pulling sima (vitiman/alpine-sima:latest)...
-latest: Pulling from vitiman/alpine-sima
-420890c9e918: Already exists
-2fe5b50d6e52: Already exists
-c50dbe451221: Already exists
-c1984dd88555: Already exists
-Digest: sha256:1ec00982774bfaf0a66c127cd7fcc39b6cedd955c294eabe4d807edc88f2e97c
-Status: Downloaded newer image for vitiman/alpine-sima:latest
-Starting dockermusicstack_icecast_1 ... 
-Starting dockermusicstack_icecast_1 ... done
-Starting dockermusicstack_mpd_1 ... 
-Starting dockermusicstack_mpd_1 ... done
-Starting dockermusicstack_sima_1 ... 
-Starting dockermusicstack_ympd_1 ... 
-Starting dockermusicstack_ympd_1
-Starting dockermusicstack_sima_1 ... done
+Creating dockermusicstack_icecast_1 ... 
+Creating dockermusicstack_icecast_1 ... done
+Creating dockermusicstack_mpd_1 ... 
+Creating dockermusicstack_mpd_1 ... done
+Creating dockermusicstack_ympd_1 ... 
+Creating dockermusicstack_ympd_1 ... done
 ```
 
 We can see the containers running ...
@@ -9644,10 +9627,9 @@ We can see the containers running ...
 
 ```
 CONTAINER ID        IMAGE                           COMMAND                  CREATED             STATUS              PORTS                    NAMES
-d9d6c082d8d7        vitiman/alpine-sima:latest      &quot;./vmpd-sima -c sima…&quot;   21 minutes ago      Up 2 seconds                                 dockermusicstack_sima_1
-7db205510446        vitiman/alpine-ympd:latest      &quot;ympd -h mpd -p 6600…&quot;   3 days ago          Up 3 seconds        0.0.0.0:8080-&gt;8080/tcp   dockermusicstack_ympd_1
-7bb0cb3aab05        vitiman/alpine-mpd:latest       &quot;mpd --stdout --no-d…&quot;   3 days ago          Up 4 seconds        0.0.0.0:6600-&gt;6600/tcp   dockermusicstack_mpd_1
-de0b3b7ff8d7        vitiman/alpine-icecast:latest   &quot;icecast -c /usr/sha…&quot;   3 days ago          Up 5 seconds        0.0.0.0:8000-&gt;8000/tcp   dockermusicstack_icecast_1
+0672796a8da9        vitiman/alpine-ympd:latest      &quot;ympd -h mpd -p 6600…&quot;   25 seconds ago      Up 24 seconds       0.0.0.0:8080-&gt;8080/tcp   dockermusicstack_ympd_1
+133696d08b36        vitiman/alpine-mpd:latest       &quot;mpd --stdout --no-d…&quot;   26 seconds ago      Up 24 seconds       0.0.0.0:6600-&gt;6600/tcp   dockermusicstack_mpd_1
+5c19126578ea        vitiman/alpine-icecast:latest   &quot;icecast -c /usr/sha…&quot;   27 seconds ago      Up 25 seconds       0.0.0.0:8000-&gt;8000/tcp   dockermusicstack_icecast_1
 ```
 
 Now we can access the Icecast administration page at [[http://localhost:8000/]] (default creds: `admin`/`hackme`), and the YMPD configuration page at [[http://localhost:8080/]].
@@ -9658,7 +9640,7 @@ Retrieve the stream address from the [[Icecast Server Status|http://localhost:80
 
 Logs can be viewed with the `docker logs` command. 
 
-* `~/code/k8s-music-stack/dockerlab/docker-music-stack $ docker logs de0b3b7ff8d7 | tail`
+* `~/code/k8s-music-stack/dockerlab/docker-music-stack $ docker logs 5c19126578ea | tail`
 
 ```
 [2017-05-28  22:49:53] WARN CONFIG/_parse_root Warning, &lt;location&gt; not configured, using default value &quot;Earth&quot;.
@@ -9671,7 +9653,6 @@ Logs can be viewed with the `docker logs` command.
 * `~/code/k8s-music-stack/dockerlab/docker-music-stack $ docker-compose stop`
 
 ```
-Stopping dockermusicstack_sima_1    ... done
 Stopping dockermusicstack_ympd_1    ... done
 Stopping dockermusicstack_mpd_1     ... done
 Stopping dockermusicstack_icecast_1 ... done
@@ -9690,7 +9671,6 @@ Starting dockermusicstack_icecast_1 ...
 Starting dockermusicstack_icecast_1 ... done
 Starting dockermusicstack_mpd_1 ... 
 Starting dockermusicstack_mpd_1 ... done
-Starting dockermusicstack_sima_1 ... 
 Starting dockermusicstack_ympd_1 ... 
 Starting dockermusicstack_ympd_1
 Starting dockermusicstack_ympd_1 ... done
@@ -9700,15 +9680,14 @@ Starting dockermusicstack_ympd_1 ... done
 
 ```
 CONTAINER ID        IMAGE                           COMMAND                  CREATED             STATUS              PORTS                    NAMES
-d9d6c082d8d7        vitiman/alpine-sima:latest      &quot;./vmpd-sima -c sima…&quot;   23 minutes ago      Up 11 seconds                                dockermusicstack_sima_1
-7db205510446        vitiman/alpine-ympd:latest      &quot;ympd -h mpd -p 6600…&quot;   3 days ago          Up 9 seconds        0.0.0.0:8080-&gt;8080/tcp   dockermusicstack_ympd_1
-7bb0cb3aab05        vitiman/alpine-mpd:latest       &quot;mpd --stdout --no-d…&quot;   3 days ago          Up 11 seconds       0.0.0.0:6600-&gt;6600/tcp   dockermusicstack_mpd_1
-de0b3b7ff8d7        vitiman/alpine-icecast:latest   &quot;icecast -c /usr/sha…&quot;   3 days ago          Up 12 seconds       0.0.0.0:8000-&gt;8000/tcp   dockermusicstack_icecast_1
+0672796a8da9        vitiman/alpine-ympd:latest      &quot;ympd -h mpd -p 6600…&quot;   2 minutes ago       Up 2 seconds        0.0.0.0:8080-&gt;8080/tcp   dockermusicstack_ympd_1
+133696d08b36        vitiman/alpine-mpd:latest       &quot;mpd --stdout --no-d…&quot;   2 minutes ago       Up 3 seconds        0.0.0.0:6600-&gt;6600/tcp   dockermusicstack_mpd_1
+5c19126578ea        vitiman/alpine-icecast:latest   &quot;icecast -c /usr/sha…&quot;   2 minutes ago       Up 3 seconds        0.0.0.0:8000-&gt;8000/tcp   dockermusicstack_icecast_1
 ```
 
 Confirm the playlist as we did earlier. The station should now be playing. Tune in to the station using the m3u link in the [[Icecast Server Status|http://localhost:8000/status.xsl]] and VLC (in `repeat` mode). Now let's instigate a failure in the stack (we'll kill the `mpd` process). 
 
-* `~/code/k8s-music-stack/dockerlab/docker-music-stack $ docker exec -ti 7bb0cb3aab05 sh`
+* `~/code/k8s-music-stack/dockerlab/docker-music-stack $ docker exec -ti 133696d08b36 sh`
 * `/ $ ps -ef`
 
 ```
@@ -9722,10 +9701,9 @@ PID   USER     TIME   COMMAND
 * `~/code/k8s-music-stack/dockerlab/docker-music-stack $ docker ps`
 
 ```
-CONTAINER ID        IMAGE                        COMMAND                  CREATED             STATUS              PORTS                    NAMES
-d9d6c082d8d7        vitiman/alpine-sima:latest      &quot;./vmpd-sima -c sima…&quot;   33 minutes ago      Up 10 minutes                                dockermusicstack_sima_1
-7db205510446        vitiman/alpine-ympd:latest      &quot;ympd -h mpd -p 6600…&quot;   3 days ago          Up 10 minutes       0.0.0.0:8080-&gt;8080/tcp   dockermusicstack_ympd_1
-de0b3b7ff8d7        vitiman/alpine-icecast:latest   &quot;icecast -c /usr/sha…&quot;   3 days ago          Up 10 minutes       0.0.0.0:8000-&gt;8000/tcp   dockermusicstack_icecast_1
+CONTAINER ID        IMAGE                           COMMAND                  CREATED             STATUS              PORTS                    NAMES
+0672796a8da9        vitiman/alpine-ympd:latest      &quot;ympd -h mpd -p 6600…&quot;   7 minutes ago       Up 4 minutes        0.0.0.0:8080-&gt;8080/tcp   dockermusicstack_ympd_1
+5c19126578ea        vitiman/alpine-icecast:latest   &quot;icecast -c /usr/sha…&quot;   7 minutes ago       Up 4 minutes        0.0.0.0:8000-&gt;8000/tcp   dockermusicstack_icecast_1
 ```
 
 [img width=30 [bw-mind-blown.png]] If you were listening to the stream, the music would have stopped. When a container fails, the service fails. And ''that's'' when people get paged. Also consider the fact that `docker-compose` is neat in that we can run multiple conainers on a single host, but what if your workload demands scaling across clusters of hosts? Let's take a look at how Kubernetes can help both the scaling and reliability issues in [[Module 4) Kubernetes System Design]]
@@ -9735,7 +9713,6 @@ de0b3b7ff8d7        vitiman/alpine-icecast:latest   &quot;icecast -c /usr/sha…
 * `~/code/k8s-music-stack/dockerlab/docker-music-stack $ docker-compose stop`
 
 ```
-Stopping dockermusicstack_sima_1    ... done
 Stopping dockermusicstack_ympd_1    ... done
 Stopping dockermusicstack_icecast_1 ... done
 ```</pre>
@@ -10074,7 +10051,7 @@ The [[Kops|https://github.com/kubernetes/kops/]] tool is one of the leading clus
 
 Now that we understand a bit about the moving parts, let's build a cluster and examine some workload in [[Module 5) Kubernetes Lab Part 1]]!</pre>
 </div>
-<div created="20170527212242991" creator="Marcial White" modified="20180528214230383" modifier="Marcial White" tags="TableOfContents" title="Module 5) Kubernetes Lab Part 1">
+<div created="20170527212242991" creator="Marcial White" modified="20180531042647952" modifier="Marcial White" tags="TableOfContents" title="Module 5) Kubernetes Lab Part 1">
 <pre>!Goals
 
 * Build an infrastructure-as-code Kubernetes cluster in AWS
@@ -11036,7 +11013,7 @@ spec:
     app: echoheaders
   type: LoadBalancer
   loadBalancerSourceRanges:
-  - 67.176.126.195/32
+  - &lt;your.public.ip.here&gt;/32
 ```
 
 Add the `metadata.annotations.*`, `.spec.type` and `spec.loadBalancerSourceRanges` sections - these are case sensitive. Then apply the modified configuration: 

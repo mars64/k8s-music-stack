@@ -5,7 +5,7 @@ metadata:
   name: icecast
   annotations: 
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
-    external-dns.alpha.kubernetes.io/hostname: icecast.$CLUSTERNAME.
+    external-dns.alpha.kubernetes.io/hostname: icecast.mars64.k8s.sofree.us.
 spec:
   selector:
     app: k8s-music-stack
@@ -18,4 +18,4 @@ spec:
       targetPort: 8000
   type: LoadBalancer
   loadBalancerSourceRanges: 
-  - <your.public.ip.here>/32
+  - 67.176.126.195/32

@@ -8823,7 +8823,7 @@ Resources</pre>
 <div created="20180602034344543" creator="Marcial White" modified="20180602034347401" modifier="Marcial White" title="$:/state/Link/--1494185200/search">
 <pre></pre>
 </div>
-<div created="20180513163123328" creator="Marcial White" modified="20180602035027847" modifier="Marcial White" title="$:/state/sidebar">
+<div created="20180513163123328" creator="Marcial White" modified="20180602183342050" modifier="Marcial White" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div created="20180513163311681" creator="Marcial White" modified="20180513163410463" modifier="Marcial White" title="$:/state/tab--1963855381">
@@ -8838,7 +8838,7 @@ Resources</pre>
 <div created="20170514201449857" modified="20170514201449857" title="$:/status/UserName">
 <pre>Marcial White</pre>
 </div>
-<div list="TableOfContents [[Module 5) Kubernetes Lab Part 1]] [[Module 6) Kubernetes Lab Part 2]] Resources" title="$:/StoryList">
+<div list="TableOfContents [[Module 5) Kubernetes Lab Part 1]] [[Module 0) Init]] Resources" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -8886,11 +8886,11 @@ Resources</pre>
         },
         &quot;$:/info/browser/screen/width&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/width&quot;,
-            &quot;text&quot;: &quot;1680&quot;
+            &quot;text&quot;: &quot;1920&quot;
         },
         &quot;$:/info/browser/screen/height&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/height&quot;,
-            &quot;text&quot;: &quot;1050&quot;
+            &quot;text&quot;: &quot;1080&quot;
         }
     }
 }</pre>
@@ -10056,7 +10056,7 @@ The [[Kops|https://github.com/kubernetes/kops/]] tool is one of the leading clus
 
 Now that we understand a bit about the moving parts, let's build a cluster and examine some workload in [[Module 5) Kubernetes Lab Part 1]]!</pre>
 </div>
-<div created="20170527212242991" creator="Marcial White" modified="20180531042647952" modifier="Marcial White" tags="TableOfContents" title="Module 5) Kubernetes Lab Part 1">
+<div created="20170527212242991" creator="Marcial White" modified="20180602183329107" modifier="Marcial White" tags="TableOfContents" title="Module 5) Kubernetes Lab Part 1">
 <pre>!Goals
 
 * Build an infrastructure-as-code Kubernetes cluster in AWS
@@ -11008,7 +11008,6 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: echo.mars64.k8s.sofree.us.
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
 spec:
-  type: NodePort
   ports:
   - port: 80
     targetPort: 8080
@@ -11023,7 +11022,7 @@ spec:
 
 Add the `metadata.annotations.*`, `.spec.type` and `spec.loadBalancerSourceRanges` sections - these are case sensitive. Then apply the modified configuration: 
 
-* `~/code/k8s-music-stack/kuberneteslab $ kubectl apply -f kubernetes-dashboard.yaml`
+* `~/code/k8s-music-stack/kuberneteslab $ kubectl apply -f echo-app.yaml`
 
 ```
 service &quot;echoheaders&quot; configured

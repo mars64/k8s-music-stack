@@ -1,8 +1,8 @@
-FROM alpine:3.6
+FROM alpine:3.11
 MAINTAINER @mars64 https://github.com/mars64
 # Based on @VITIMan https://github.com/VITIMan
 
-ENV YMPD_VERSION 1.3.0
+ENV YMPD_VERSION='1.3.0'
 ENV LIBMPDCLIENT_INCLUDE_DIR /usr/lib/libmpdclient.so.2
 
 RUN apk -q update \

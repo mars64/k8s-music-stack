@@ -3,7 +3,7 @@
          on the server info page of the icecast web interface
          (server_version.xsl). -->
     <location>ICECAST_LOCATION</location>
-    <admin>ICECAST_ADMIN</admin>
+    <admin>ICECAST_ADMIN_USER</admin>
 
     <limits>
         <clients>100</clients>
@@ -28,13 +28,13 @@
 
     <authentication>
         <!-- Sources log in with username 'source' -->
-        <source-password>hackme</source-password>
+        <source-password>ICECAST_STREAM_PASS</source-password>
         <!-- Relays log in username 'relay' -->
-        <relay-password>hackme</relay-password>
+        <relay-password>ICECAST_RELAY_PASS</relay-password>
 
         <!-- Admin logs in with the username given below -->
         <admin-user>admin</admin-user>
-        <admin-password>hackme</admin-password>
+        <admin-password>ICECAST_ADMIN_PASS</admin-password>
     </authentication>
 
     <!-- set the mountpoint for a shoutcast source to use, the default if not
@@ -58,7 +58,7 @@
 
     <!-- You may have multiple <listener> elements -->
     <listen-socket>
-        <port>8000</port>
+        <port>ICECAST_PORT</port>
         <!-- <bind-address>127.0.0.1</bind-address> -->
         <!-- <shoutcast-mount>/stream</shoutcast-mount> -->
     </listen-socket>
@@ -71,7 +71,7 @@
     <!--<master-server>127.0.0.1</master-server>-->
     <!--<master-server-port>8001</master-server-port>-->
     <!--<master-update-interval>120</master-update-interval>-->
-    <!--<master-password>hackme</master-password>-->
+    <!--<master-password>ICECAST_ADMIN_PASS</master-password>-->
 
     <!-- setting this makes all relays on-demand unless overridden, this is
          useful for master relays which do not have <relay> definitions here.
@@ -96,7 +96,7 @@
         <mount-name>/example-complex.ogg</mount-name>
 
         <username>othersource</username>
-        <password>hackmemore</password>
+        <password>ICECAST_STREAM_PASS</password>
 
         <max-listeners>1</max-listeners>
         <dump-file>/tmp/dump-example1.ogg</dump-file>

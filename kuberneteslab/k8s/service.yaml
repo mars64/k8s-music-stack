@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: icecast
+  annotations: 
+    external-dns.alpha.kubernetes.io/hostname: icecast.mars64.io.
+spec:
+  selector:
+    app: k8s-music-stack
+  ports:
+    - name: icecast-web
+      port: 80
+      targetPort: 8000
+    - name: icecast-stream
+      port: 8000
+      targetPort: 8000
+  type: LoadBalancer	
+  loadBalancerSourceRanges:
+  - your.ip.goes.here/32    
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ympd
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: ympd.mars64.io.
+spec:
+  selector:
+    app: k8s-music-stack
+  ports:
+    - name: ympd
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer	
+  loadBalancerSourceRanges:
+  - your.ip.goes.here/32    

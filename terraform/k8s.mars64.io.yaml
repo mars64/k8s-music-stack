@@ -1,0 +1,97 @@
+apiVersion: kops.k8s.io/v1alpha2
+kind: Cluster
+metadata:
+  creationTimestamp: null
+  name: k8s.mars64.io
+spec:
+  api:
+    loadBalancer:
+      type: Public
+  authorization:
+    rbac: {}
+  channel: stable
+  cloudProvider: aws
+  configBase: s3://k8s.mars64.io/k8s.mars64.io
+  etcdClusters:
+  - cpuRequest: 200m
+    etcdMembers:
+    - instanceGroup: master-us-east-1a
+      name: a
+    memoryRequest: 100Mi
+    name: main
+    version: 3.2.24
+  - cpuRequest: 100m
+    etcdMembers:
+    - instanceGroup: master-us-east-1a
+      name: a
+    memoryRequest: 100Mi
+    name: events
+    version: 3.2.24
+  iam:
+    allowContainerRegistry: true
+    legacy: false
+  kubelet:
+    anonymousAuth: false
+  kubernetesApiAccess:
+  - 73.14.68.176/32
+  kubernetesVersion: 1.15.9
+  masterPublicName: api.k8s.mars64.io
+  networkCIDR: 172.20.0.0/16
+  networking:
+    calico:
+      majorVersion: v3
+  nonMasqueradeCIDR: 100.64.0.0/10
+  sshAccess:
+  - 73.14.68.176/32
+  subnets:
+  - cidr: 172.20.32.0/19
+    name: us-east-1a
+    type: Public
+    zone: us-east-1a
+  topology:
+    dns:
+      type: Public
+    masters: public
+    nodes: public
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  creationTimestamp: null
+  labels:
+    kops.k8s.io/cluster: k8s.mars64.io
+  name: master-us-east-1a
+spec:
+  associatePublicIp: true
+  image: kope.io/k8s-1.15-debian-stretch-amd64-hvm-ebs-2020-01-17
+  machineType: t2.medium
+  maxSize: 1
+  minSize: 1
+  nodeLabels:
+    kops.k8s.io/instancegroup: master-us-east-1a
+  role: Master
+  subnets:
+  - us-east-1a
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  creationTimestamp: null
+  labels:
+    kops.k8s.io/cluster: k8s.mars64.io
+  name: nodes
+spec:
+  associatePublicIp: true
+  image: kope.io/k8s-1.15-debian-stretch-amd64-hvm-ebs-2020-01-17
+  machineType: t2.micro
+  maxSize: 1
+  minSize: 1
+  nodeLabels:
+    kops.k8s.io/instancegroup: nodes
+  role: Node
+  subnets:
+  - us-east-1a

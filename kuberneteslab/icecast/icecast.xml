@@ -96,7 +96,7 @@
         <mount-name>/example-complex.ogg</mount-name>
 
         <username>othersource</username>
-        <password>ICECAST_ADMIN_PASS</password>
+        <password>ICECAST_STREAM_PASS</password>
 
         <max-listeners>1</max-listeners>
         <dump-file>/tmp/dump-example1.ogg</dump-file>

@@ -15,6 +15,9 @@ spec:
     - name: icecast-stream
       port: 8000
       targetPort: 8000
+  type: LoadBalancer	
+  loadBalancerSourceRanges:
+  - your.ip.goes.here/32    
 
 ---
 apiVersion: v1
@@ -30,4 +33,6 @@ spec:
     - name: ympd
       port: 80
       targetPort: 8080
-
+  type: LoadBalancer	
+  loadBalancerSourceRanges:
+  - your.ip.goes.here/32    

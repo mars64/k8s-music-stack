@@ -1,11 +1,14 @@
-FROM alpine:3.6
+FROM alpine:3.11
 MAINTAINER @mars64 https://github.com/mars64
 # Based on @VITIMan https://github.com/VITIMan 
 
-ENV ICECAST_VERSION="2.4.3-r4"
-ENV ICECAST_LOCATION="Deep Bass Station 9"
-ENV ICECAST_ADMIN="you@there.tld"
+ENV ICECAST_ADMIN_PASS="plznuhhackmeh"
+ENV ICECAST_ADMIN_USER="you@there.tld"
 ENV ICECAST_HOSTNAME="localhost"
+ENV ICECAST_LOCATION="Deep Bass Station 9"
+ENV ICECAST_PORT="8000"
+ENV ICECAST_STREAM_PASS="hackme"
+ENV ICECAST_VERSION="2.4.4-r1"
 
 ARG user=icecast
 ARG group=icecast

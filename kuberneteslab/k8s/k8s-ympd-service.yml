@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: ympd
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: ympd.mars64.k8s.sofree.us.
+    external-dns.alpha.kubernetes.io/hostname: ympd.mars64.io.
 spec:
   selector:
     app: k8s-music-stack
@@ -12,6 +12,7 @@ spec:
     - name: ympd
       port: 80
       targetPort: 8080
-  type: LoadBalancer
-  loadBalancerSourceRanges:
-  - 67.176.126.195/32
+      ###  type: LoadBalancer
+      ###  loadBalancerSourceRanges:
+      ###  - 73.14.68.176/32
+      ###  - 50.116.15.190/32

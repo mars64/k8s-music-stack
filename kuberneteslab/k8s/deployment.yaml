@@ -75,7 +75,7 @@ spec:
         - name: ICECAST_ADMIN_USER
           value: "iceadmin@mars64.io"
         - name: ICECAST_ADMIN_PASS
-          value: "9UK9JqhqxuokF96LTpe9vhvnjR5vbGaK"
+          value: "plznuhhackmeh"
         - name: ICECAST_HOSTNAME
           value: "icecast.mars64.io"
         - name: ICECAST_LOCATION
@@ -83,9 +83,9 @@ spec:
         - name: ICECAST_PORT
           value: "8000"
         - name: ICECAST_RELAY_PASS
-          value: "9UK9JqhqxuokF96LTpe9vhvnjR5vbGaK"
+          value: "plznuhhackmeh"
         - name: ICECAST_STREAM_PASS
-          value: "9UK9JqhqxuokF96LTpe9vhvnjR5vbGaK"
+          value: "plznuhhackmeh"
         - name: ICECAST_VERSION
           value: "2.4.3-r4"
       - name: mpd
@@ -95,7 +95,7 @@ spec:
         - containerPort: 6600
         env:
         - name: ICECAST_STREAM_PASS
-          value: "9UK9JqhqxuokF96LTpe9vhvnjR5vbGaK"
+          value: "plznuhhackmeh"
         volumeMounts:
         - mountPath: /var/lib/mpd/music
           name: mpd-music

@@ -73,7 +73,7 @@ spec:
             cpu: 10m
         env:
         - name: ICECAST_ADMIN_USER
-          value: "iceadmin@localhost"
+          value: "iceadmin@mars64.io"
         - name: ICECAST_ADMIN_PASS
           value: "plznuhhackmeh"
         - name: ICECAST_HOSTNAME

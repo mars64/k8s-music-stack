@@ -77,7 +77,7 @@ spec:
         - name: ICECAST_ADMIN_PASS
           value: "plznuhhackmeh"
         - name: ICECAST_HOSTNAME
-          value: "icecast.mars64.io"
+          value: "icecast.YOURNAMESPACEHERE.beta.internal.kaskada.com"
         - name: ICECAST_LOCATION
           value: "DEEP BASS STATION 9"
         - name: ICECAST_PORT

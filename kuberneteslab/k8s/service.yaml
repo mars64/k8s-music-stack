@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: icecast
   annotations: 
-    external-dns.alpha.kubernetes.io/hostname: icecast.mars64.io.
+    external-dns.alpha.kubernetes.io/hostname: icecast.YOURNAMESPACEHERE.beta.internal.kaskada.com.
 spec:
   selector:
     app: k8s-music-stack
@@ -17,7 +17,7 @@ spec:
       targetPort: 8000
   type: LoadBalancer	
   loadBalancerSourceRanges:
-  - your.ip.goes.here/32    
+  - YOUR.PUBLIC.IP.HERE/32
 
 ---
 apiVersion: v1
@@ -25,7 +25,7 @@ kind: Service
 metadata:
   name: ympd
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: ympd.mars64.io.
+    external-dns.alpha.kubernetes.io/hostname: ympd.YOURNAMESPACEHERE.beta.internal.kaskada.com.
 spec:
   selector:
     app: k8s-music-stack
@@ -35,4 +35,4 @@ spec:
       targetPort: 8080
   type: LoadBalancer	
   loadBalancerSourceRanges:
-  - your.ip.goes.here/32    
+  - YOUR.PUBLIC.IP.HERE/32    

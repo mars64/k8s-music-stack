@@ -2,7 +2,7 @@
 
 k8s specs for Icecast, mpd, ympd, sima - based on https://github.com/vitiMan/docker-music-stack
 
-This class was initially built for the [Software Freedom School](http://www.SoFree.us). Greetz out to SFS, ASG, IT/NTL and RP!
+This class was initially built for the [Software Freedom School](http://www.SoFree.us). Greetz out to SFS, ASG, IT/NTL, RP, Conga & Kaskada! This version of the class is specific for Kaskada! 
 
 - v1: minikube
 - v2: AWS and DigitalOcean
@@ -16,6 +16,5 @@ There is a slide deck included as a visual guide - but it not necessary for anyo
 Found a problem? Feel free to submit a PR ;)
 
 Happy kube'ing!
-
 
 -Mars
